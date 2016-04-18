@@ -1,8 +1,8 @@
 (function($){
     // Listen to .load-more bnt and
-    // append articles links to table from paginate/{{page}}
+    // append articles links to table from peginate/{{page}}
     var page = 2,
-        url_pattern = 'paginate/{{page}}';
+        url_pattern = 'peginate/{{page}}';
         $table = $('.table');
         $btn = $('.btn.load-more');
 

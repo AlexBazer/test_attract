@@ -7,7 +7,7 @@ from article.models import Article
 
 
 def peginate_articles(page):
-    """Paginate through articles"""
+    """peginate through articles"""
     articles = Article.objects\
         .filter(is_published=True)\
         .order_by('-id')
@@ -34,8 +34,8 @@ def index(request):
 
 
 @require_GET
-def paginate(request, page):
-    """Paginate views"""
+def peginate(request, page):
+    """peginate views"""
     articles = peginate_articles(page)
     return render(request, 'article/articles_list.html', {
         'articles': articles

@@ -33,7 +33,7 @@ class ArticleTest(TestCase):
     def test_article_pagination(self):
         page = 1
         # Get next 5 articles
-        response = self.client.get(reverse('article:paginate', kwargs={'page': page}))
+        response = self.client.get(reverse('article:peginate', kwargs={'page': page}))
 
         # Is page reachable
         self.assertEqual(response.status_code, 200)

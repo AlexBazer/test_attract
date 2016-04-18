@@ -19,10 +19,18 @@ class ArticleTest(TestCase):
         first_article.is_published = True
         first_article.save()
         response = self.client.get(reverse('article:index'))
-        self.assertIn(first_article, response.context.get('articles', []))
+        self.assertIn(first_article, response.context['articles'])
 
         # Test is_published
         first_article.is_published = False
         first_article.save()
         response = self.client.get(reverse('article:index'))
-        self.assertNotIn(first_article, response.context.get('articles', []))
+        self.assertNotIn(first_article, response.context['articles'])
+
+    def test_article(self):
+        first_article = Article.objects.order_by('-id').first()
+        first_article.is_published = True
+        first_article.save()
+        
+        response = self.client.get(reverse('article:index', slug=first_article.slug))
+        self.assertEqual(response.status_code, 200)

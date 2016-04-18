@@ -3,6 +3,7 @@ from django.views.decorators.http import require_GET
 
 from article.models import Article
 
+
 @require_GET
 def index(request):
     """View for main page"""

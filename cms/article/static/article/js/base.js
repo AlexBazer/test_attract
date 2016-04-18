@@ -7,6 +7,7 @@
         $btn = $('.btn.load-more');
 
     $btn.click(function(event){
+        event.preventDefault();
         $.get(url_pattern.replace('{{page}}', page), function(data){
             if(data.trim().length > 0){
                 $table.find('tbody').append(data);

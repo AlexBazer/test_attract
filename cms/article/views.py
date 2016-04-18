@@ -14,3 +14,8 @@ def index(request):
         'article/index.html',
         {'articles': articles}
     )
+
+
+@require_GET
+def article(request, slug):
+    return render(request, 'article/article.html')

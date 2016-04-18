@@ -31,6 +31,8 @@ class ArticleTest(TestCase):
         first_article = Article.objects.order_by('-id').first()
         first_article.is_published = True
         first_article.save()
-        
-        response = self.client.get(reverse('article:index', slug=first_article.slug))
+
+        response = self.client.get(
+            reverse('article:article', kwargs={'slug': first_article.slug})
+        )
         self.assertEqual(response.status_code, 200)

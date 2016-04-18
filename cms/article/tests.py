@@ -40,3 +40,11 @@ class ArticleTest(TestCase):
 
         # Article page have correct article object
         self.assertEqual(response.context['article'], first_article)
+
+        # Article with is_published=False has to git 404 page
+        first_article.is_published = False
+        first_article.save()
+        response = self.client.get(
+            reverse('article:article', kwargs={'slug': first_article.slug})
+        )
+        self.assertEqual(response.status_code, 404)

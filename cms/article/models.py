@@ -8,7 +8,7 @@ class Article(models.Model):
     """Article model"""
     title = models.CharField(_('Article title'), max_length=250)
     slug = models.SlugField(_('Article slug'), max_length=250)
-    image = models.ImageField(_('Article image'), upload_to='article')
+    image = models.ImageField(_('Article image'), upload_to='article', blank=True, null=True)
     content = models.TextField(_('Article content text'))
     is_published = models.BooleanField(_('Article is published'), default=False)
 

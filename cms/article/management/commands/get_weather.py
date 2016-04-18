@@ -6,7 +6,7 @@ class Command(BaseCommand):
     """Show current weather in console
 
     Get weather data from openweathermap
-    And print current temperature, humidity and commot weather data in console
+    And print current temperature, humidity and common weather data in console
     """
     help = "Get weather by city name"
     can_import_settings = True

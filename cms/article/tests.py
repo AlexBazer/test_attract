@@ -12,7 +12,7 @@ class ArticleTest(TestCase):
         # Is page reachable
         self.assertEqual(response.status_code, 200)
         # Is page context contains articles list with 5 elements
-        self.assertEqual(len(response.context.get('articles', [])), 5)
+        self.assertEqual(len(response.context['articles']), 5)
 
         first_article = Article.objects.order_by('-id').first()
         # Test order

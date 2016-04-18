@@ -124,3 +124,7 @@ STATIC_URL = '/static/'
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+# Articles per page
+ARTICLES_PER_PAGE = 5

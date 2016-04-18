@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from article.models import Article
@@ -12,7 +13,7 @@ class ArticleTest(TestCase):
         # Is page reachable
         self.assertEqual(response.status_code, 200)
         # Is page context contains articles list with 5 elements
-        self.assertEqual(len(response.context['articles']), 5)
+        self.assertEqual(len(response.context['articles']), settings.ARTICLES_PER_PAGE)
 
         first_article = Article.objects.order_by('-id').first()
         # Test order
@@ -26,6 +27,12 @@ class ArticleTest(TestCase):
         first_article.save()
         response = self.client.get(reverse('article:index'))
         self.assertNotIn(first_article, response.context['articles'])
+
+    def test_article_pagination(self):
+        # Get next 5 articles
+        response = self.client.get(reverse('article:paginate', kwargs={'page': 2}))
+
+        self.assertEqual(response.status_code, 2000)
 
     def test_article(self):
         first_article = Article.objects.order_by('-id').first()

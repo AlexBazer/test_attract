@@ -1,5 +1,5 @@
 {% for article in articles %}
-<tr data-last="{{ articles.has_next }}">
+<tr {% if not articles.has_next %}data-last="true"{% endif %}>
     <td>
         <a href="{% url 'article:article' slug=article.slug %}">{{article.title}}</a>
     </td>

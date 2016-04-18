@@ -7,3 +7,4 @@ class ArticleAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         'slug': ('title', )
     }
+    list_display = ('title', 'is_published')

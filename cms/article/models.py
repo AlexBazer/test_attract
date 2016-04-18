@@ -10,3 +10,4 @@ class Article(models.Model):
     slug = models.SlugField(_('Article slug'), max_length=250)
     image = models.ImageField(_('Article image'), upload_to='article')
     content = models.TextField(_('Article content text'))
+    is_published = models.BooleanField(_('Article is published'), default=False)

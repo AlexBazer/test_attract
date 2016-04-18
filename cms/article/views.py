@@ -7,7 +7,7 @@ from article.models import Article
 def index(request):
     """View for main page"""
 
-    articles = Article.objects.all().order_by('-id')[0:5]
+    articles = Article.objects.filter(is_published=True).order_by('-id')[0:5]
     return render(
         request,
         'article/index.html',

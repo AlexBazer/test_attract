@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
 
 from article.models import Article
@@ -18,4 +18,7 @@ def index(request):
 
 @require_GET
 def article(request, slug):
-    return render(request, 'article/article.html')
+    article = get_object_or_404(Article, slug=slug)
+    return render(request, 'article/article.html', {
+        'article': article
+    })

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
+from django.core.paginator import Paginator, EmptyPage
 
 from article.models import Article
 
@@ -23,11 +24,15 @@ def paginate(request, page):
 
     Return populated html with next n articles, given page number
     """
-    offset = settings.ARTICLES_PER_PAGE * int(page)
-    to = offset + settings.ARTICLES_PER_PAGE
     articles = Article.objects\
         .filter(is_published=True)\
-        .order_by('-id')[offset:to]
+        .order_by('-id')
+
+    paginator = Paginator(articles, settings.ARTICLES_PER_PAGE)
+    try:
+        articles = paginator.page(int(page))
+    except EmptyPage:
+        articles = paginator.page(paginator.num_pages)
 
     return render(request, 'article/articles_list.html', {
         'articles': articles

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage
 
 from article.models import Article
 
@@ -38,12 +39,12 @@ class ArticleTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Is next 5 elements can be getted
-        offset = settings.ARTICLES_PER_PAGE * page
-        to = offset + settings.ARTICLES_PER_PAGE
         articles = Article.objects\
             .filter(is_published=True)\
-            .order_by('-id')[offset: to]
-        [self.assertIn(article, response.context['articles']) for article in articles]
+            .order_by('-id')
+        paginator = Paginator(articles, settings.ARTICLES_PER_PAGE)
+
+        [self.assertIn(article, response.context['articles']) for article in paginator.page(page)]
 
     def test_article(self):
         first_article = Article.objects.order_by('-id').first()

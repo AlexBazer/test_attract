@@ -32,7 +32,15 @@ class ArticleTest(TestCase):
         # Get next 5 articles
         response = self.client.get(reverse('article:paginate', kwargs={'page': 2}))
 
+        # Is page reachable
         self.assertEqual(response.status_code, 200)
+
+        # Is next 5 elements can be getted
+        articles = Article.objects\
+            .filter(is_published=True)\
+            .order_by('-id')[settings.ARTICLES_PER_PAGE: 2*settings.ARTICLES_PER_PAGE]
+
+        [self.assertIn(article, response.context['articles']) for article in articles]
 
     def test_article(self):
         first_article = Article.objects.order_by('-id').first()

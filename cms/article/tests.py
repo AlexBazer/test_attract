@@ -15,8 +15,14 @@ class ArticleTest(TestCase):
         self.assertEqual(len(response.context.get('articles', [])), 5)
 
         first_article = Article.objects.order_by('-id').first()
-        # Text order
+        # Test order
         first_article.is_published = True
         first_article.save()
         response = self.client.get(reverse('article:index'))
         self.assertIn(first_article, response.context.get('articles', []))
+
+        # Test is_published
+        first_article.is_published = False
+        first_article.save()
+        response = self.client.get(reverse('article:index'))
+        self.assertNotIn(first_article, response.context.get('articles', []))

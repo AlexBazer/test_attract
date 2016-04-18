@@ -32,7 +32,7 @@ class ArticleTest(TestCase):
         # Get next 5 articles
         response = self.client.get(reverse('article:paginate', kwargs={'page': 2}))
 
-        self.assertEqual(response.status_code, 2000)
+        self.assertEqual(response.status_code, 200)
 
     def test_article(self):
         first_article = Article.objects.order_by('-id').first()

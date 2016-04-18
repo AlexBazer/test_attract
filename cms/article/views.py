@@ -17,6 +17,12 @@ def index(request):
 
 
 @require_GET
+def paginate(request, page):
+    print page
+    return render(request, 'article/articles_list.html')
+
+
+@require_GET
 def article(request, slug):
     article = get_object_or_404(Article, slug=slug, is_published=True)
     return render(request, 'article/article.html', {

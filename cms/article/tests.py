@@ -32,7 +32,11 @@ class ArticleTest(TestCase):
         first_article.is_published = True
         first_article.save()
 
+        # Article page reachable
         response = self.client.get(
             reverse('article:article', kwargs={'slug': first_article.slug})
         )
         self.assertEqual(response.status_code, 200)
+
+        # Article page have correct article object
+        self.assertEqual(response.context['article'], first_article)

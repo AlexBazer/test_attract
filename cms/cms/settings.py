@@ -128,3 +128,6 @@ MEDIA_URL = '/media/'
 
 # Articles per page
 ARTICLES_PER_PAGE = 5
+
+# Open weather appid
+OPEN_WEATHER_API_KEY = 'c9fcbe2488d058da2a9793f607ecc657'

@@ -6,24 +6,8 @@ from django.core.paginator import Paginator, EmptyPage
 from article.models import Article
 
 
-@require_GET
-def index(request):
-    """View for main page"""
-    articles = Article.objects\
-        .filter(is_published=True).order_by('-id')[0:settings.ARTICLES_PER_PAGE]
-    return render(
-        request,
-        'article/index.html',
-        {'articles': articles}
-    )
-
-
-@require_GET
-def paginate(request, page):
-    """Paginate views
-
-    Return populated html with next n articles, given page number
-    """
+def peginate_articles(page):
+    """Paginate through articles"""
     articles = Article.objects\
         .filter(is_published=True)\
         .order_by('-id')
@@ -34,6 +18,25 @@ def paginate(request, page):
     except EmptyPage:
         articles = paginator.page(paginator.num_pages)
 
+    return articles
+
+
+@require_GET
+def index(request):
+    """View for main page"""
+    articles = peginate_articles(1)
+
+    return render(
+        request,
+        'article/index.html',
+        {'articles': articles}
+    )
+
+
+@require_GET
+def paginate(request, page):
+    """Paginate views"""
+    articles = peginate_articles(page)
     return render(request, 'article/articles_list.html', {
         'articles': articles
     })

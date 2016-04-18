@@ -8,7 +8,7 @@
 
     $btn.click(function(event){
         $.get(url_pattern.replace('{{page}}', page), function(data){
-            if(data.length > 0){
+            if(data.trim().length > 0){
                 $table.find('tbody').append(data);
                 if ($table.find('[data-last]').length > 0){
                     $btn.addClass('disabled');

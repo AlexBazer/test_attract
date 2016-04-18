@@ -17,6 +17,8 @@
         </tbody>
     </table>
     <div class="">
-        <a href="#" class="btn btn-primary load-more">{% trans "Load more"%}</a>
+        <a href="#" class="btn btn-primary load-more {% if not articles %}disabled{% endif%}">
+            {% trans "Load more"%}
+        </a>
     </div>
 {% endblock %}

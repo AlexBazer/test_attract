@@ -11,3 +11,6 @@ class Article(models.Model):
     image = models.ImageField(_('Article image'), upload_to='article')
     content = models.TextField(_('Article content text'))
     is_published = models.BooleanField(_('Article is published'), default=False)
+
+    def __unicode__(self):
+        return self.title

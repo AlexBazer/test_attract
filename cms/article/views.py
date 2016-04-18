@@ -8,7 +8,6 @@ from article.models import Article
 @require_GET
 def index(request):
     """View for main page"""
-
     articles = Article.objects\
         .filter(is_published=True).order_by('-id')[0:settings.ARTICLES_PER_PAGE]
     return render(
@@ -20,6 +19,10 @@ def index(request):
 
 @require_GET
 def paginate(request, page):
+    """Paginate views
+
+    Return populated html with next n articles, given page number
+    """
     offset = settings.ARTICLES_PER_PAGE * int(page)
     to = offset + settings.ARTICLES_PER_PAGE
     articles = Article.objects\
@@ -33,6 +36,7 @@ def paginate(request, page):
 
 @require_GET
 def article(request, slug):
+    """Article view"""
     article = get_object_or_404(Article, slug=slug, is_published=True)
     return render(request, 'article/article.html', {
         'article': article

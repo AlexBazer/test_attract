@@ -13,7 +13,7 @@ class ArticleTest(TestCase):
         # Is page reachable
         self.assertEqual(response.status_code, 200)
         # Is page context contains articles list with 5 elements
-        articles_count = Article.objects.filter(is_published=True).count()
+        articles_count = len(Article.objects.filter(is_published=True)[0:settings.ARTICLES_PER_PAGE])
         self.assertEqual(len(response.context['articles']), articles_count)
 
         first_article = Article.objects.order_by('-id').first()

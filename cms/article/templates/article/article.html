@@ -1,0 +1,25 @@
+{% extends "article/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Article - " %}{{ article.title}}{% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'article:index' %}">{% trans "Articles" %}</a></li>
+        <li class="active">{{article.title}}</li>
+    </ol>
+{% endblock %}
+
+
+{% block content %}
+    <div class="article-title page-header">
+        <h1>{{article.title}}</h1>
+    </div>
+    <div class="article-image text-center">
+        <img src="{{article.image.url}}" alt="" />
+    </div>
+    <div class="article-content text-justify">
+        <p>{{article.content|safe}} </p>
+    </div>
+{% endblock %}

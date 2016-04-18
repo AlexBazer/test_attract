@@ -1,0 +1,14 @@
+/* Article image */
+.article-image{
+    height: 350px;
+}
+.article-image img{
+    height: 100%;
+    width: auto;
+}
+
+/* Article content */
+.article-content{
+    margin-top:20px;
+    padding: 0 10px;
+}

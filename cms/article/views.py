@@ -18,7 +18,7 @@ def index(request):
 
 @require_GET
 def article(request, slug):
-    article = get_object_or_404(Article, slug=slug)
+    article = get_object_or_404(Article, slug=slug, is_published=True)
     return render(request, 'article/article.html', {
         'article': article
     })

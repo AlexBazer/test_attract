@@ -13,7 +13,8 @@ class ArticleTest(TestCase):
         # Is page reachable
         self.assertEqual(response.status_code, 200)
         # Is page context contains articles list with 5 elements
-        self.assertEqual(len(response.context['articles']), settings.ARTICLES_PER_PAGE)
+        articles_count = Article.objects.filter(is_published=True).count()
+        self.assertEqual(len(response.context['articles']), articles_count)
 
         first_article = Article.objects.order_by('-id').first()
         # Test order
@@ -29,17 +30,19 @@ class ArticleTest(TestCase):
         self.assertNotIn(first_article, response.context['articles'])
 
     def test_article_pagination(self):
+        page = 1
         # Get next 5 articles
-        response = self.client.get(reverse('article:paginate', kwargs={'page': 2}))
+        response = self.client.get(reverse('article:paginate', kwargs={'page': page}))
 
         # Is page reachable
         self.assertEqual(response.status_code, 200)
 
         # Is next 5 elements can be getted
+        offset = settings.ARTICLES_PER_PAGE * page
+        to = offset + settings.ARTICLES_PER_PAGE
         articles = Article.objects\
             .filter(is_published=True)\
-            .order_by('-id')[settings.ARTICLES_PER_PAGE: 2*settings.ARTICLES_PER_PAGE]
-
+            .order_by('-id')[offset: to]
         [self.assertIn(article, response.context['articles']) for article in articles]
 
     def test_article(self):
